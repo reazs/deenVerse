@@ -10,8 +10,5 @@ export const editProfileSchema = z.object({
     .min(3, "Username  must be at least 3 characters.")
     .max(50, "Username should not be longer than 50 characters"),
   email: z.string().email("Invalid Email"),
-  password: z
-    .string()
-    .min(7, "Password must be at least 7 characters.")
-    .max(50),
+
 });

@@ -1,3 +1,4 @@
+import EditProfileForm from "@/components/forms/editProfileForm";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -13,11 +14,14 @@ import { Label } from "@/components/ui/label";
 import { useUpdateUserInfo } from "@/hooks/useUpdateUserInfo";
 import { useUserInfo } from "@/hooks/useUserInfo";
 import { redirect } from "next/navigation";
-import React from "react";
+import React, { useState } from "react";
 
 const EditUserProfile = () => {
-  const { mutateAsync: updateUserInfo, isPending: isLoading } =
-    useUpdateUserInfo();
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleClose = () => {
+    setIsOpen(false);
+  };
   const { data: user, isPending: isLoadingUser } = useUserInfo();
   if (isLoadingUser) {
     return (
@@ -30,7 +34,7 @@ const EditUserProfile = () => {
     return redirect("/login");
   }
   return (
-    <Dialog>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger>
         <Button>Edit Profile</Button>
       </DialogTrigger>
@@ -41,42 +45,7 @@ const EditUserProfile = () => {
             Make changes to your profile here. Click save when you're done.
           </DialogDescription>
         </DialogHeader>
-        <div className="grid gap-4 py-4">
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="name" className="text-right">
-              Name
-            </Label>
-            <Input
-              id="name"
-              defaultValue={user.fullname}
-              className="col-span-3"
-            />
-          </div>
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="username" className="text-right">
-              Username
-            </Label>
-            <Input
-              id="username"
-              defaultValue={user.username}
-              className="col-span-3"
-            />
-          </div>
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="email" className="text-right">
-              Email
-            </Label>
-            <Input
-              id="email"
-              defaultValue={user.email}
-              disabled
-              className="col-span-3"
-            />
-          </div>
-        </div>
-        <DialogFooter>
-          <Button type="submit">Save changes</Button>
-        </DialogFooter>
+        <EditProfileForm user={user} onClose={handleClose} />
       </DialogContent>
     </Dialog>
   );
