@@ -6,7 +6,7 @@ import { LogOut } from "lucide-react";
 import { redirect, useRouter } from "next/navigation";
 import React from "react";
 import { signOut, useSession } from "next-auth/react";
-import ProfilePageSkeleton from "./profilePageSkeleton";
+import UserStatsSkeleton from "./userStatsSkeleton";
 import { useUserInfo } from "@/hooks/useUserInfo";
 import { Dialog, DialogContent } from "@radix-ui/react-dialog";
 import { DialogTrigger } from "@/components/ui/dialog";
@@ -23,7 +23,7 @@ const UserStats = () => {
   };
 
   if (isLoadingUser) {
-    return <ProfilePageSkeleton />;
+    return <UserStatsSkeleton />;
   }
   if (!user) {
     return redirect("/login");

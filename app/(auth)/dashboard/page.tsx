@@ -67,7 +67,7 @@ export default function ProfilePage() {
   return (
     <div className="min-h-screen bg-gradient-to-b ">
       {/* Navbar */}
-      <nav className="bg-white shadow-md p-4 flex justify-between items-center">
+      {/* <nav className="bg-white shadow-md p-4 flex justify-between items-center">
         <div className="flex items-center space-x-4">
           <LogoBrand />
           <input
@@ -99,7 +99,7 @@ export default function ProfilePage() {
             </AvatarFallback>
           </Avatar>
         </div>
-      </nav>
+      </nav> */}
 
       {/* Main Content */}
       <div className="container mx-auto px-4 py-8">

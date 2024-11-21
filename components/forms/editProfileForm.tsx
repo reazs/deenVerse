@@ -19,8 +19,13 @@ import { DialogFooter } from "../ui/dialog";
 import { Button } from "../ui/button";
 import { useUpdateUserInfo } from "@/hooks/useUpdateUserInfo";
 
-const EditProfileForm = ({ user, onClose }: { user: IUser, onClose: ()=>void }) => {
-
+const EditProfileForm = ({
+  user,
+  onClose,
+}: {
+  user: IUser;
+  onClose: () => void;
+}) => {
   // react hook provider
   const { mutateAsync: updateUserInfo, isPending: isLoading } =
     useUpdateUserInfo();
@@ -44,54 +49,60 @@ const EditProfileForm = ({ user, onClose }: { user: IUser, onClose: ()=>void }) 
     console.log(data, "------------>user has been updated <---------");
   }
   return (
-      <Form {...form}>
+    <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
-        <div>
-          <div className="grid gap-4 py-4">
-            <FormField
-              control={form.control}
-              name="fullname"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Full name</FormLabel>
-                  <FormControl>
-                    <Input placeholder={user.fullname} {...field} />
-                  </FormControl>
-
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="username"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Username</FormLabel>
-                  <FormControl>
-                    <Input placeholder={user.username} {...field} />
-                  </FormControl>
-
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="email"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Email</FormLabel>
-                  <FormControl>
-                    <Input disabled placeholder={user.email} {...field} />
-                  </FormControl>
-
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+        {isLoading ? (
+          <div className="flex h-full w-full items-center justify-center">
+            <span className="loading loading-infinity loading-lg"></span>
           </div>
-        </div>
+        ) : (
+          <div>
+            <div className="grid gap-4 py-4">
+              <FormField
+                control={form.control}
+                name="fullname"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Full name</FormLabel>
+                    <FormControl>
+                      <Input placeholder={user.fullname} {...field} />
+                    </FormControl>
+
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="username"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Username</FormLabel>
+                    <FormControl>
+                      <Input placeholder={user.username} {...field} />
+                    </FormControl>
+
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Email</FormLabel>
+                    <FormControl>
+                      <Input disabled placeholder={user.email} {...field} />
+                    </FormControl>
+
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+          </div>
+        )}
         <DialogFooter>
           <Button type="submit">Save changes</Button>
         </DialogFooter>
