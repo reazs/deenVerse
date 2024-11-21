@@ -1,11 +1,12 @@
 import { TUpdatedUserInfo } from "@/types";
+import { IUser } from "../models/User";
 
 export const getCurrentUserInfo = async () => {
   try {
     const res = await fetch("/api/user", { method: "GET" });
     if (res.status === 200) {
       const data = await res.json();
-      return data;
+      return data as IUser;
     } else {
       return null;
     }

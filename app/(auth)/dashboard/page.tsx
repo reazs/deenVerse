@@ -8,18 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
-import {
-  BookOpen,
-  Heart,
-  Home,
-  LogOut,
-  MessageCircle,
-  PlusCircle,
-  Search,
-  Settings,
-  User,
-  Users,
-} from "lucide-react";
+import { Home, MessageCircle } from "lucide-react";
 import Link from "next/link";
 import LogoBrand from "@/components/shared/logoBrand";
 import { Textarea } from "@/components/ui/textarea";
