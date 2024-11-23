@@ -2,7 +2,7 @@ import { z } from "zod";
 
 const signupFormSchema = z.object({
   fullname: z
-    .string()
+    .string()  
     .min(5, "Your full name should be at least 5 characters.")
     .max(50, "Cannot accept longer than 50 characters for full name."),
   username: z

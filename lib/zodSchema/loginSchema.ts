@@ -5,7 +5,7 @@ const loginFormSchema = z.object({
   password: z
     .string()
     .min(7, "Password must be at least 7 characters.")
-    .max(50),
+    .max(50),   
 });
 
 export default loginFormSchema;

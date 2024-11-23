@@ -49,7 +49,7 @@ const PostSchema = new Schema<IPost>(
 
 // Define UserProfile Schema
 // const UserProfileSchema = new Schema<IUserProfile>(
-//   {
+//   {   
 //     user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
 //     posts: [PostSchema], // Array of posts created by the user
 //     bookmarkedHadiths: [BookmarkedHadithSchema], // Array of bookmarked Hadiths

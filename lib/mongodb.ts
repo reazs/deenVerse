@@ -6,7 +6,7 @@ const connectDB = async () => {
       process.env.MONGODB_URI as string,
       {
         useNewUrlParser: true,
-        useUnifiedTopology: true,
+        useUnifiedTopology: true,  
       } as mongoose.ConnectOptions
     );
     console.log("MongoDB connected successfully");
