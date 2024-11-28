@@ -36,7 +36,7 @@ const EditUserProfile = () => {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger>
-        <Button>Edit Profile</Button>
+        <div className="btn btn-outline">Edit Profile</div>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>

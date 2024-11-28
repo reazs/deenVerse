@@ -67,9 +67,9 @@ const UserStats = () => {
           </div>
           <div className="flex space-x-2">
             <EditUserProfile />
-            <Button variant="outline" onClick={handleSignOut}>
+            <div className="btn " onClick={handleSignOut}>
               <LogOut className="mr-2 h-4 w-4" /> Sign Out
-            </Button>
+            </div>
           </div>
         </div>
       </div>
