@@ -16,7 +16,7 @@ export default function HadithChaptersPage() {
   const filteredChapters = hadithChapterNames.filter((chapter) =>
     chapter.chapter_title.toLowerCase().includes(searchTerm.toLowerCase())
   );
-
+  console.log("hello world");
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-6">Hadith Chapters</h1>
