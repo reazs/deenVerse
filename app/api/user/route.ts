@@ -1,6 +1,6 @@
 import { getServerSession } from "next-auth";
 import { authOptions } from "../auth/[...nextauth]/route";
-import User, { IUser } from "@/lib/models/User";
+import { IUser, User } from "@/lib/models/User";
 import connectToDatabase from "@/lib/mongodb";
 import { NextResponse } from "next/server";
 import { error } from "console";

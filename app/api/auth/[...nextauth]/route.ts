@@ -2,7 +2,7 @@ import NextAuth, { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 import connectToDatabase from "@/lib/mongodb";
-import User from "@/lib/models/User";
+import { User } from "@/lib/models/User";
 import { compare } from "bcryptjs";
 
 export const authOptions: NextAuthOptions = {
@@ -20,53 +20,76 @@ export const authOptions: NextAuthOptions = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        await connectToDatabase();
+        try {
+          try {
+            await connectToDatabase();
+          } catch (error) {
+            console.error("Database connection error:", error);
+            return null;
+          }
 
-        const { email, password } = credentials ?? {};
-        if (!email || !password) return null;
+          const { email, password } = credentials ?? {};
+          if (!email || !password) return null;
 
-        const user = await User.findOne({ email });
-        if (!user) return null;
+          const user = await User.findOne({ email });
+          if (!user) {
+            console.log(`No user found for email: ${email}`);
+            return null;
+          }
 
-        const isValidPassword = await compare(password, user.password);
-        if (!isValidPassword) return null;
+          const isValidPassword = await compare(password, user.password);
+          console.log(`Password valid: ${isValidPassword}`);
+          if (!isValidPassword) return null;
 
-        return {
-          id: user._id.toString(),
-          name: user.fullname,
-          username: user.username,
-          email: user.email,
-          image: user.image,
-        };
+          return {
+            id: user._id.toString(),
+            name: user.fullname,
+            username: user.username,
+            email: user.email,
+            image: user.image,
+          };
+        } catch (error) {
+          console.error("Error in authorize function:", error);
+          return null;
+        }
       },
     }),
   ],
   callbacks: {
     async jwt({ token, user }) {
-      if (user) {
-        token.id = user.id;
-        token.username = user.username;
-        token.fullname = user.name;
-        token.email = user.email;
-        token.image = user.image;
+      try {
+        if (user) {
+          token.id = user.id;
+          token.username = user.username;
+          token.fullname = user.name;
+          token.email = user.email;
+          token.image = user.image;
+        }
+        return token;
+      } catch (error) {
+        console.error("Error in JWT callback:", error);
+        return token;
       }
-      return token;
     },
     async session({ session, token }) {
-      if (token) {
-        session.user.id = token.id;
-        session.user.username = token.username;
-        session.user.fullname = token.fullname;
-        session.user.email = token.email;
-        session.user.image = token.image;
+      try {
+        if (token) {
+          session.user.id = token.id;
+          session.user.username = token.username;
+          session.user.fullname = token.fullname;
+          session.user.email = token.email;
+          session.user.image = token.image;
+        }
+        return session;
+      } catch (error) {
+        console.error("Error in session callback:", error);
+        return session;
       }
-      return session;
     },
   },
   secret: process.env.NEXTAUTH_SECRET,
   pages: {
     signIn: "/login",
-   
   },
 };
 

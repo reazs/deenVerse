@@ -105,7 +105,7 @@ export default function ProfilePage() {
       <div className="container mx-auto px-4 py-8">
         <UserStats />
         <Separator />
-        <CreatePost />
+        <CreatePost  />
         <Tabs defaultValue="posts" className="w-full">
           <TabsList className="grid w-full grid-cols-2">
             <TabsTrigger value="posts">Posts</TabsTrigger>

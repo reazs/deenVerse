@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import connectToDatabase from "@/lib/mongodb";
-import User, { IUser } from "@/lib/models/User";
+import { IUser, User } from "@/lib/models/User";
 import { hash } from "bcryptjs";
 import { error } from "console";
 
