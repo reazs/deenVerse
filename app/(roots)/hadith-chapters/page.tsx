@@ -4,11 +4,12 @@ import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Input } from "@/components/ui/input";
-import { BookOpen } from "lucide-react";
+import { BookOpen, ChevronLeft } from "lucide-react";
 import {
   hadithChapterNames,
   HadithChapterProp,
 } from "@/lib/islamic-data/hadith_chapter_names";
+import Link from "next/link";
 
 export default function HadithChaptersPage() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -16,7 +17,6 @@ export default function HadithChaptersPage() {
   const filteredChapters = hadithChapterNames.filter((chapter) =>
     chapter.chapter_title.toLowerCase().includes(searchTerm.toLowerCase())
   );
-  console.log("hello world");
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-6">Hadith Chapters</h1>
@@ -34,15 +34,20 @@ export default function HadithChaptersPage() {
               key={chapter.chapter_id}
               className="hover:shadow-lg transition-shadow"
             >
-              <CardHeader>
-                <CardTitle className="flex items-center">
-                  <BookOpen className="mr-2 h-5 w-5 text-emerald-500" />
-                  Chapter {chapter.chapter_id}
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-gray-600">{chapter.chapter_title}</p>
-              </CardContent>
+              <Link
+                href={"/hadith-chapters/" + chapter.chapter_id}
+                className="h-full w-full"
+              >
+                <CardHeader>
+                  <CardTitle className="flex items-center">
+                    <BookOpen className="mr-2 h-5 w-5 text-emerald-500" />
+                    Chapter {chapter.chapter_id}
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-gray-600">{chapter.chapter_title}</p>
+                </CardContent>
+              </Link>
             </Card>
           ))}
         </div>
