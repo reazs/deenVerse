@@ -24,7 +24,7 @@ export const useCreatePost = () => {
 };
 
 export const usePosts = () => {
-  return useQuery<IPost, Error>({
+  return useQuery<IPost[], Error>({
     queryKey: [QUERY_KEYS.GET_POSTS],
     queryFn: getPostsAction,
   });
