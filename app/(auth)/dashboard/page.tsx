@@ -19,10 +19,12 @@ import CreatePost from "@/components/shared/createPost";
 import PostsTab from "./postsTab";
 import HadithsTab from "./hadithsTab";
 
+
 export default function ProfilePage() {
   const { data: session, status } = useSession();
   const router = useRouter();
   const [activeTab, setActiveTab] = useState("posts");
+
 
   const userStats = {
     posts: 42,
@@ -105,7 +107,7 @@ export default function ProfilePage() {
       <div className="container mx-auto px-4 py-8">
         <UserStats />
         <Separator />
-        <CreatePost  />
+        <CreatePost />
         <Tabs defaultValue="posts" className="w-full">
           <TabsList className="grid w-full grid-cols-2">
             <TabsTrigger value="posts">Posts</TabsTrigger>

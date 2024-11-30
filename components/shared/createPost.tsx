@@ -2,10 +2,13 @@ import React, { ChangeEvent, useState } from "react";
 import { Textarea } from "../ui/textarea";
 import { PlusCircle, Target } from "lucide-react";
 import { useUserInfo } from "@/hooks/useUserInfo";
+import { useCreatePost } from "@/hooks/usePost";
 
 const CreatePost = () => {
   const [postContent, setPostContent] = useState("");
   const { data: user, isPending: isUserLoading } = useUserInfo();
+  const { mutateAsync: createPost, isPending: isCreatingPost } =
+    useCreatePost();
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setPostContent(e.target.value);
   };
@@ -13,16 +16,7 @@ const CreatePost = () => {
     return null;
   }
   const handleCreatePost = async () => {
-    const res = await fetch("/api/post", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        postContent: postContent,
-        email: user.email,
-      }),
-    });
+    createPost({ email: user.email, postContent: postContent });
   };
   return (
     <div className="mb-8">

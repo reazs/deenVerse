@@ -1,6 +1,7 @@
 import { Post, User } from "@/lib/models/User";
 import { NextRequest, NextResponse } from "next/server";
 import mongoose from "mongoose";
+import { error } from "console";
 
 export const POST = async (req: NextRequest) => {
   try {
@@ -28,6 +29,25 @@ export const POST = async (req: NextRequest) => {
     console.error("Error creating post: ", error);
     return NextResponse.json(
       { error: "Internal Server Error" },
+      { status: 500 }
+    );
+  }
+};
+
+export const GET = async () => {
+  try {
+    const posts = await Post.find().populate(
+      "author",
+      "fullname username email image"
+    );
+    if (!posts) {
+      return NextResponse.json({ error: "Cannot find posts" }, { status: 404 });
+    }
+    return NextResponse.json(posts, { status: 200 });
+  } catch (error) {
+    console.error("Failed to get Posts: ", error);
+    return NextResponse.json(
+      { error: "Internal Server error" },
       { status: 500 }
     );
   }

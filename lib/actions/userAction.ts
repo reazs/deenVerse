@@ -24,7 +24,10 @@ export const updateUserInfo = async (data: TUpdatedUserInfo) => {
       },
       body: JSON.stringify(data),
     });
+    
   } catch (error) {
     console.log("userAction failed to update user ifno: ", error);
   }
 };
+
+
