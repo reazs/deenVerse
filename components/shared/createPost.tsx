@@ -16,18 +16,28 @@ const CreatePost = () => {
     return null;
   }
   const handleCreatePost = async () => {
-    createPost({ email: user.email, postContent: postContent });
+    createPost({
+      email: user.email,
+      postContent: postContent,
+    });
+    setPostContent("");
   };
   return (
     <div className="mb-8">
       <div className="pt-6">
         <Textarea
+          value={postContent}
+          disabled={isCreatingPost}
           onChange={(e) => handleChange(e)}
           placeholder="Share your thoughts or reflections..."
           className="mb-4 min-h-[100px]"
         />
         <div className="flex justify-end">
-          <button onClick={handleCreatePost} className="btn btn-outline">
+          <button
+            disabled={isCreatingPost}
+            onClick={handleCreatePost}
+            className="btn btn-outline"
+          >
             <PlusCircle className="mr-2 h-4 w-4" /> Create Post
           </button>
         </div>

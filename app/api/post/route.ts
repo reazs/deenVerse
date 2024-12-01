@@ -43,7 +43,7 @@ export const GET = async () => {
     if (!posts) {
       return NextResponse.json({ error: "Cannot find posts" }, { status: 404 });
     }
-    return NextResponse.json(posts, { status: 200 });
+    return NextResponse.json(posts.reverse(), { status: 200 });
   } catch (error) {
     console.error("Failed to get Posts: ", error);
     return NextResponse.json(

@@ -5,21 +5,23 @@ import { Input } from "@/components/ui/input";
 import { usePosts } from "@/hooks/usePost";
 import { Heart, MessageCircle, Share } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import Loading from "@/components/shared/Loading";
+import ErrorMessage from "@/components/shared/ErrorMessage";
 // import { formatDistanceToNow } from "date-fns";
 
 const PostsTab = () => {
   const { data: posts, isPending: isLoadingPosts, error } = usePosts();
 
   if (isLoadingPosts) {
-    return <div className="text-center py-4">Loading posts...</div>;
+    return (
+      <div className="flex h-full w-full justify-center items-center py-10">
+        <Loading />
+      </div>
+    );
   }
 
   if (error) {
-    return (
-      <div className="text-center py-4 text-red-500">
-        Error loading posts: {error.message}
-      </div>
-    );
+    return <ErrorMessage>Error loading posts: {error.message}</ErrorMessage>;
   }
 
   if (!posts || posts.length === 0) {

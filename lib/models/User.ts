@@ -63,15 +63,6 @@ const PostSchema: Schema<IPost> = new Schema({
   isEdited: { type: Boolean, default: false },
 });
 
-// Middleware to update the 'updatedAt' field and set 'isEdited' to true when a post is modified
-PostSchema.pre("save", function (next) {
-  if (this.isModified("content")) {
-    this.isEdited = true;
-    this.updatedAt = new Date();
-  }
-  next();
-});
-
 // Check if the User model already exists, otherwise define it
 const User: Model<IUser> =
   mongoose.models.User || model<IUser>("User", UserSchema);
