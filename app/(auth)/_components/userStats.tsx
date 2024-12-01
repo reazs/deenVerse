@@ -41,7 +41,7 @@ const UserStats = () => {
             alt={user.fullname}
           />
           <AvatarFallback className="text-4xl">
-            {user.fullname.charAt(0) + user.fullname?.split(" ")[1].charAt(0)}
+            {user.fullname.charAt(0) +  user.fullname?.split(" ")[1].charAt(0)}
           </AvatarFallback>
         </Avatar>
         <div className="text-center md:text-left">

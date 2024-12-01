@@ -7,12 +7,14 @@ import { Heart, MessageCircle, Share } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Loading from "@/components/shared/Loading";
 import ErrorMessage from "@/components/shared/ErrorMessage";
+import { useUserInfo } from "@/hooks/useUserInfo";
+import { redirect } from "next/navigation";
 // import { formatDistanceToNow } from "date-fns";
 
 const PostsTab = () => {
   const { data: posts, isPending: isLoadingPosts, error } = usePosts();
-
-  if (isLoadingPosts) {
+  const { data: user, isPending: isUserLoading } = useUserInfo();
+  if (isLoadingPosts || isUserLoading) {
     return (
       <div className="flex h-full w-full justify-center items-center py-10">
         <Loading />
@@ -27,10 +29,14 @@ const PostsTab = () => {
   if (!posts || posts.length === 0) {
     return <div className="text-center py-4">No posts found.</div>;
   }
+  if (!user) {
+    return redirect("/login");
+  }
+  const fileredPost = posts.filter((post) => post.author.email === user.email);
 
   return (
     <div className="space-y-6">
-      {posts.map((post) => (
+      {fileredPost.map((post) => (
         <Card key={post._id}>
           <CardContent className="p-6">
             <div className="flex items-center space-x-4 mb-4">
