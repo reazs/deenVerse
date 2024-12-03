@@ -11,6 +11,7 @@ import Loading from "@/components/shared/Loading";
 import ErrorMessage from "@/components/shared/ErrorMessage";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import CreatePost from "@/components/shared/createPost";
+import ProfileAvatar from "@/components/shared/profileAvatar";
 
 const RecommendedSection = ({ title, items }) => (
   <Card className="mb-6">
@@ -69,26 +70,7 @@ const HomePage = () => {
                 {posts.map((post) => (
                   <Card key={post._id}>
                     <CardContent className="p-6">
-                      <div className="flex items-center space-x-4 mb-4">
-                        <Avatar>
-                          <AvatarImage
-                            src={post.author.image}
-                            alt={post.author.fullname}
-                          />
-                          <AvatarFallback>
-                            {post.author.fullname[0]}
-                          </AvatarFallback>
-                        </Avatar>
-                        <div>
-                          <p className="font-semibold">
-                            {post.author.fullname}
-                          </p>
-                          <p className="text-sm text-gray-500">
-                            @{post.author.username}
-                            {post.isEdited && " (edited)"}
-                          </p>
-                        </div>
-                      </div>
+                      <ProfileAvatar post={post} />
                       <p className="mb-4">{post.content}</p>
                       <div className="flex items-center space-x-4 mb-4">
                         <Button variant="ghost" size="sm">

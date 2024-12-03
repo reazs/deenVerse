@@ -45,7 +45,10 @@ const PostsTab = () => {
                   src={post.author.image}
                   alt={post.author.fullname}
                 />
-                <AvatarFallback>{post.author.fullname[0]}</AvatarFallback>
+                <AvatarFallback>
+                  {post.author.fullname[0]}
+                  {post.author.fullname.split(" ")[1][0]}
+                </AvatarFallback>
               </Avatar>
               <div>
                 <p className="font-semibold">{post.author.fullname}</p>
